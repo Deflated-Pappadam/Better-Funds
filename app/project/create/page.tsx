@@ -71,7 +71,7 @@ const formSchema = z.object({
   terms: z.boolean().default(false).optional(),
 });
 
-const contractAddress = "0x20C29A7883356eF364F57224C04C524ffA546525";
+const contractAddress = "0x121b71FcfF790b8dD4E2A0A04Cd7aDFe27363E66";
 
 function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);

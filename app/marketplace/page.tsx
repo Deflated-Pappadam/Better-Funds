@@ -26,7 +26,7 @@ function Page() {
     connectWallet();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const contractAddress = "0x20C29A7883356eF364F57224C04C524ffA546525";
+  const contractAddress = "0x121b71FcfF790b8dD4E2A0A04Cd7aDFe27363E66";
   async function connectWallet() {
     if (!connected && window.ethereum) {
       const provider = new ethers.BrowserProvider(window.ethereum);
