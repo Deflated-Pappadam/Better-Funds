@@ -72,7 +72,7 @@ function Page({ params }: { params: { id: string } }) {
             contributors: increment(1),
             totalContributed: increment(amount ?? 0),
           })
-        const contributorRef = doc(db, 'contributors', `${walletAddress}`, 'contributions', params.id);
+        const contributorRef = doc(db, 'contributors', _walletAddress, 'contributions', params.id);
         const contributorDoc = await getDoc(contributorRef);
         if (!contributorDoc.exists()) {
             await setDoc(contributorRef, {
@@ -160,7 +160,7 @@ function Page({ params }: { params: { id: string } }) {
               className={`w-full h-[20px] bg-slate-200 rounded-md relative my-[5px]`}
             >
               <div style={{width: `${progressPercent}%`}}
-                className={`h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md`}
+                className={`h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md max-w-[100%]`}
               />
             </div>
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[5%]" />

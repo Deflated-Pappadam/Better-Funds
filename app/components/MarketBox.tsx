@@ -13,8 +13,8 @@ type MarketProps = {
 
 function MarketBox(props:MarketProps) {
   return (
-    <div className='flex flex-col justify-center items-center w-[300px] h-[400px]  border-black border-[1px] p-2  m-5 rounded-2xl'>
-        <div className='w-[280px] h-[150px]'>
+    <div className='flex flex-col justify-between items-center w-[290px] h-[400px]  border-black border-[1px] p-2 py-[1vw]  m-5 rounded-2xl'>
+        <div className='w-[280px] h-[150px] overflow-hidden'>
         <Image alt="" width={1080} height={1080} src={props.ImageUrl} className='object-fit rounded-xl'/>
         </div>
         <div className='w-full p-3'>

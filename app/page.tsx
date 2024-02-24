@@ -1,6 +1,8 @@
+'use client' 
 import Image from "next/image";
 import NavBar from "./components/NavBar";
 import Datablock from "./components/Datablock";
+import { motion } from "framer-motion"
 
 export default function Home() {
   return (
@@ -19,10 +21,19 @@ export default function Home() {
         </div>
         <h2 className="w-[30%] text-[#616161] text-center text-[1.2vw]">
         Contributions to Tokens, Projects to Progress, Marketplace to Discover        </h2>
-        <button className="text-white text-xl px-8 py-3 bg-[#2d2d2d] rounded-xl m-2">
-          Join Now
-        </button>
-        <div className="flex gap-[2vw] p-5">
+        <div className="flex gap-2">
+        <a href="/business/dashboard" className="text-white text-xl px-8 py-3 bg-[#2d2d2d] rounded-xl m-2">
+        Entrepreneur
+        </a>
+        <a  href="/contributor/dashboard" className="text-white text-xl px-8 py-3 bg-[#2d2d2d] rounded-xl m-2">
+          Contributor
+        </a>
+        </div>
+        
+        <motion.div  className="flex gap-[2vw] p-5" initial={{ opacity: 0,y:40 }}
+    animate={{ opacity: 1,y:0}}
+    transition={{ duration: 1.0 }}>
+
           <Image
             src="/books.png"
             alt=""
@@ -30,6 +41,8 @@ export default function Home() {
             height={1080}
             className="w-[200px] rounded-xl translate-y-[5vw]"
           />
+   
+     
           <Image
             src="/people.png"
             alt=""
@@ -37,6 +50,8 @@ export default function Home() {
             height={1080}
             className="w-[200px] rounded-xl "
           />
+   
+    
           <Image
             src="/cybertruck.png"
             alt=""
@@ -44,6 +59,8 @@ export default function Home() {
             height={1080}
             className="w-[200px] rounded-xl  translate-y-[5vw]"
           />
+
+      
           <Image
             src="/batman.png"
             alt=""
@@ -51,6 +68,8 @@ export default function Home() {
             height={1080}
             className="w-[200px] rounded-xl  "
           />
+      
+     
           <Image
             src="/plushie.png"
             alt=""
@@ -58,7 +77,8 @@ export default function Home() {
             height={1080}
             className="w-[200px] rounded-xl  translate-y-[5vw]"
           />
-        </div>
+       
+        </motion.div>
       </section>
       <section
         id="aboutUs"
@@ -130,7 +150,9 @@ export default function Home() {
       <footer className="flex flex-col min-h-[400px] bg-[#1c1c1c] w-full p-5 justify-center items-center">
 <h1 className="text-[7vw] text-[#f6f6f6]">Better Funds</h1>
 <h2 className="text-[1.5vw] text-[#f6f6f6]">Contributions to Tokens, Projects to Progress, Marketplace to Discover</h2>
-<h3 className="text-[#f6f6f6] p-5"> ©️ deflated pappadam </h3>
+<h3 className="text-[#f6f6f6] text-lg  p-5"> ©️ deflated pappadam </h3>
+
+<h4 className="text-[#f6f6f6] p-5">All assets used in this website are generated using stable diffusion</h4>
       </footer>
     </main>
   );
