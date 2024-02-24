@@ -18,7 +18,7 @@ export default function Home() {
           </h1>
         </div>
         <h2 className="w-[30%] text-[#616161] text-center text-[1.2vw]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et
+        Your Token, Your Impact, Our Marketplace
          
         </h2>
         <button className="text-white text-xl px-6 py-3 bg-blue-500 rounded-xl m-2">
