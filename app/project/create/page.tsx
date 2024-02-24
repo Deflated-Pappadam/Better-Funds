@@ -45,6 +45,21 @@ const formSchema = z.object({
       (file) => file.type?.startsWith("image"),
       "the provided file is not an image"
     ),
+  milestone1desc: z
+    .string()
+    .min(1, "please provide milestone description")
+    .max(150, "description of project cannot be more than 400 characters long"),
+  milestone1cost: z.coerce.number().min(1),
+  milestone2desc: z
+    .string()
+    .min(1, "please provide milestone description")
+    .max(150, "description of project cannot be more than 400 characters long"),
+  milestone2cost: z.coerce.number().min(1),
+  milestone3desc: z
+    .string()
+    .min(1, "please provide milestone description")
+    .max(150, "description of project cannot be more than 400 characters long"),
+  milestone3cost: z.coerce.number().min(1),
 });
 
 function Page() {
@@ -103,9 +118,9 @@ function Page() {
                   type="file"
                   className=" border-slate-300"
                   onChange={(e) => {
-                    // Convert the FileList to an array and update the form state
-                    const filesArray = Array.from(e.target.files || []);
-                    field.onChange(filesArray);
+                    if (e.target.files) {
+                      field.onChange(e.target.files[0]);
+                    }
                   }}
                 />
               </FormControl>
@@ -113,7 +128,109 @@ function Page() {
             </FormItem>
           )}
         />
-        <Separator/>
+        <div className="border-l-4 px-5 space-y-2">
+          <div className="flex items-center space-x-5">
+            <div className="bg-[#2d2d2d] text-white p-5 border rounded-full w-2 h-2 flex items-center justify-center">
+              1
+            </div>
+            <FormField
+              name="milestone1desc"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="md:col-span-4 col-span-1">
+                  <FormControl>
+                    <Input placeholder="Milestone Description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="milestone1cost"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="md:col-span-4 col-span-1">
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="Milestone Cost"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex items-center space-x-5">
+            <div className="bg-[#2d2d2d] text-white p-5 border rounded-full w-3 h-3 flex items-center justify-center">
+              2
+            </div>
+            <FormField
+              name="milestone2desc"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="md:col-span-4 col-span-1">
+                  <FormControl>
+                    <Input placeholder="Milestone Description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="milestone2cost"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="md:col-span-4 col-span-1">
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="Milestone Cost"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex items-center space-x-5">
+            <div className="bg-[#2d2d2d] text-white p-5 border rounded-full w-3 h-3 flex items-center justify-center">
+              3
+            </div>
+            <FormField
+              name="milestone3desc"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="md:col-span-4 col-span-1">
+                  <FormControl>
+                    <Input placeholder="Milestone Description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="milestone3cost"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="md:col-span-4 col-span-1">
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="Milestone Cost"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <Separator className="my-4" />
         <Button type="submit">Submit</Button>
       </form>
     </Form>

@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import NavBar from "@/app/components/NavBar";
 
 const Businesses = [
   {
@@ -38,13 +39,14 @@ const Businesses = [
 
 function page() {
   return (
-    <div className="min-h-screen bg-[#fcfcfc]  pt-[5%] px-[5%] poppins-regular text-[#2d2d2d]">
+    <div className="min-h-screen bg-[#fcfcfc]   px-[5%] poppins-regular text-[#2d2d2d]">
+      <NavBar/>
       <div className="w-full flex justify-between items-center mx-auto py-[1vw]">
         <div className="text-[1.5vw] poppins-semibold text-[#2d2d2d] ">
           Dashboard
         </div>
         <button className="text-[1vw] bg-[#2d2d2d]  text-white poppins-medium px-4 py-2 rounded-xl">
-          + something
+          + Contribute
         </button>
       </div>
       <div className="flex flex-col w-full gap-10">
