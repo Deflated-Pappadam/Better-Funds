@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 
 
 type MarketProps = {
@@ -8,6 +8,7 @@ type MarketProps = {
     desc: string;
     id: string;
     name:string;
+    buy: (cost: number) => Promise<void>;
   };
   
 
@@ -21,7 +22,7 @@ function MarketBox(props:MarketProps) {
         <h2 className='text-[1.0vw] text-black flex'>{props.cost} pdm</h2>
         <h1 className='text-[1.2vw] '>{props.name}</h1>
         <h3 className='text-[#2d2d2d9d]'>  {props.desc}</h3>
-        <button className='bg-black text-white px-4 py-2 rounded-lg mt-4'>Buy</button>
+        <button onClick={()=> props.buy(Number(props.cost))} className='bg-black text-white px-4 py-2 rounded-lg mt-4'>Buy</button>
 
         </div>
       
