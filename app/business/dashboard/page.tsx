@@ -98,8 +98,7 @@ function Page() {
                     <h2 className="text-sm text-[#3d3d3dba]">Total</h2>
                   </div>
                   <div className="p-4">
-                    <h1 className="text-2xl">10%</h1>
-                    <h2 className="text-sm text-[#3d3d3dba]">Growth</h2>
+                
                   </div>
                   <div className="p-4">
                     <h1
