@@ -40,7 +40,7 @@ const Businesses = [
 function page() {
   return (
     <div className="min-h-screen bg-[#fcfcfc]   px-[5%] poppins-regular text-[#2d2d2d]">
-      <NavBar/>
+      <NavBar />
       <div className="w-full flex justify-between items-center mx-auto py-[1vw]">
         <div className="text-[1.5vw] poppins-semibold text-[#2d2d2d] ">
           Dashboard
@@ -66,12 +66,14 @@ function page() {
                 <h2 className="text-sm text-[#3d3d3dba]">Total</h2>
               </div>
               <div className="p-4">
-                <h1 className="text-2xl">0%</h1>
-                <h2 className="text-sm text-[#3d3d3dba]">Growth</h2>
+                <h1 className="text-2xl">0 pdm</h1>
+                <h2 className="text-sm text-[#3d3d3dba]">Credits</h2>
               </div>
               <div className="p-4">
-                <h1 className="text-2xl">0 $</h1>
-                <h2 className="text-sm text-[#3d3d3dba]">Added today</h2>
+                <h2 className="text-sm text-[#3d3d3dba]">Wallet Address</h2>
+                <h1 className="text-sm">
+                  0x020E160544A4ef69b8A21704CC04D8042138cc47
+                </h1>
               </div>
             </div>
           </div>
@@ -107,8 +109,8 @@ function page() {
           </div>
 
           <div className="w-[30%] h-[400px] border-[#38383848] border-2 rounded-xl p-5 m-2">
-          <h1 className="text-[1.5vw]">Trending</h1>
-          <Table className="my-2">
+            <h1 className="text-[1.5vw]">Trending</h1>
+            <Table className="my-2">
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[120px]">Business</TableHead>
@@ -121,7 +123,7 @@ function page() {
                     <TableCell className="font-medium">
                       {Business.name}
                     </TableCell>
-                   
+
                     <TableCell className="text-right">
                       {Business.goalAmount}
                     </TableCell>
