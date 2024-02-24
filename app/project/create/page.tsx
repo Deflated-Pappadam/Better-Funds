@@ -1,10 +1,11 @@
 "use client";
 
 import { z } from "zod";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import { UpdateIcon } from "@radix-ui/react-icons";
 import {
   Form,
   FormControl,
@@ -16,7 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@radix-ui/react-separator";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   name: z
@@ -60,9 +62,11 @@ const formSchema = z.object({
     .min(1, "please provide milestone description")
     .max(150, "description of project cannot be more than 400 characters long"),
   milestone3cost: z.coerce.number().min(1),
+  terms: z.boolean().default(false).optional(),
 });
 
 function Page() {
+  const [isSubmitting, setIsSubmitting] = useState(true);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -128,6 +132,7 @@ function Page() {
             </FormItem>
           )}
         />
+        <Separator className="my-4" />
         <div className="border-l-4 px-5 space-y-2">
           <div className="flex items-center space-x-5">
             <div className="bg-[#2d2d2d] text-white p-5 border rounded-full w-2 h-2 flex items-center justify-center">
@@ -229,9 +234,38 @@ function Page() {
             />
           </div>
         </div>
-
-        <Separator className="my-4" />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="terms"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border p-4 shadow">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>
+                  Use different settings for my mobile devices
+                </FormLabel>
+                <FormDescription>
+                  You can manage your mobile notifications in the{" "}
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+        <Button disabled={isSubmitting} type="submit">
+          {isSubmitting ? (
+            <div className="flex items-center space-x-3">
+              <p>Submitting</p>
+              <UpdateIcon className="h-4 w-4 animate-spin" />
+            </div>
+          ) : (
+            `Submit`
+          )}
+        </Button>
       </form>
     </Form>
   );
