@@ -1,6 +1,5 @@
 "use client";
-import React, { ClassAttributes, HTMLAttributes } from "react";
-import { ResponsiveLine } from "@nivo/line";
+import React from "react";
 import { CurvedlineChart } from "@/app/components/CurvedGraph";
 
 function page() {
@@ -16,7 +15,7 @@ function page() {
       </div>
       <div className="flex flex-col w-full gap-10">
         <div className="flex md:flex-row flex-col w-full justify-between">
-          <div className="md:w-[65%] h-[275px] border-[#38383848] border-2 rounded-xl p-5 m-2 flex flex-col justify-between">
+          <div className="md:w-[70%] h-[275px] border-[#38383848] border-2 rounded-xl p-5 m-2 flex flex-col justify-between">
             <div className="flex justify-between">
               <h1 className="text-lg m-2 text-[#2d2d2d] ">Investments</h1>
               <h1 className="text-md m-2 text-[#3b3b3b] ">Last 30 days</h1>
@@ -42,13 +41,11 @@ function page() {
           </div>
         </div>
         <div className="flex justify-between">
-          <div className="w-[30%] h-[275px] border-[#38383848] border-2 rounded-xl p-5 ">
-            cdrsgfgsjf
+          <div className="w-[70%] h-[275px] border-[#38383848] border-2 rounded-xl p-5 m-2">
+            <h1 className="text-[1.5vw]">Your Investments</h1>
           </div>
-          <div className="w-[30%] h-[275px] border-[#38383848] border-2 rounded-xl p-5">
-            gjd
-          </div>
-          <div className="w-[30%] h-[275px] border-[#38383848] border-2 rounded-xl p-5"></div>
+          
+          <div className="w-[30%] h-[275px] border-[#38383848] border-2 rounded-xl p-5 m-2"></div>
         </div>
       </div>
     </div>
