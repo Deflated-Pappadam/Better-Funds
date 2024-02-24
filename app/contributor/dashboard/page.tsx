@@ -20,22 +20,21 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
 type contributions = {
   project_id: string;
-  value: DocumentData;
+  value?: DocumentData;
+  userContributed: DocumentData;
 };
 
 function Page() {
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
-  const [investordoc, setInvestordoc] = useState<contributions[]>([]);
-  const [projectDoc, setProjectDoc] = useState<contributions[]>([]);
-
-  console.log(projectDoc);
+  const [project, setProject] = useState<contributions[]>([]);
 
   useEffect(() => {
     connectWallet();
@@ -43,14 +42,24 @@ function Page() {
   }, []);
 
   useEffect(() => {
-    const contributorsRef = collection(db, "contributors", walletAddress, "contributions");
-    const docs = getDocs(contributorsRef)
-  
-    investordoc.map(async (elem) => {
-      const ref = doc(db, "projects", elem.project_id);
-      const d = await getDoc(ref);
-      setProjectDoc([...projectDoc, { project_id: d.id, value: d.data }]);
+    if (!walletAddress) return;
+    const contributorsRef = collection(
+      db,
+      "contributors",
+      walletAddress,
+      "contributions"
+    );
+    const projects: contributions[] = []
+    getDocs(contributorsRef).then((querySnap) => {
+      querySnap.forEach((di) => {
+        const docRef = doc(db, "projects", di.id);
+        getDoc(doc(db, "projects", di.id)).then((d) => {
+          projects.push({ project_id: d.id, value: d.data(), userContributed: di.data() })
+          setProject(projects);
+        });
+      });
     });
+    
   }, [walletAddress]);
 
   async function connectWallet() {
@@ -88,18 +97,17 @@ function Page() {
                   <h1 className="text-lg m-2 text-[#2d2d2d] ">Investments</h1>
                   <h1 className="text-md m-2 text-[#3b3b3b] ">Last 30 days</h1>
                 </div>
-                <CurvedlineChart className="w-full h-[200px]" />
+                <CurvedlineChart projectData={project} className="w-full h-[200px]" />
               </div>
               <div className="flex flex-col md:w-[30%] h-[275px]  justify-center border-[#38383848] border-2 rounded-xl  poppins-medium text-xl p-5 m-2">
                 Your Numbers
                 <div className="grid grid-cols-2 p-3">
                   <div className="p-4">
-                    <h1 className="text-2xl">0 $</h1>
-                    <h2 className="text-sm text-[#3d3d3dba]">Total</h2>
-                  </div>
-                  <div className="p-4">
-                    <h1 className="text-2xl">0 pdm</h1>
-                    <h2 className="text-sm text-[#3d3d3dba]">Credits</h2>
+                    <h1 className="text-2xl">{Array.from(project.values()).reduce(
+                            (acc, data) => acc + data.userContributed.totalContributed,
+                            0
+                          )} $</h1>
+                    <h2 className="text-sm text-[#3d3d3dba]">Total Contributed</h2>
                   </div>
                   <div className="p-4">
                     <h2 className="text-sm text-[#3d3d3dba]">Wallet Address</h2>
@@ -124,23 +132,25 @@ function Page() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {projectDoc.map((p) => (
+                    {project.map((p) => (
                       <TableRow key={p.project_id}>
                         <TableCell className="font-medium">
-                          {p.value.desc}
+                          {p.value?.name}
                         </TableCell>
-                        <TableCell>{p.value.totalContributed}</TableCell>
-                        <TableCell>{p.value['milestiones 3  cost']}</TableCell>
+                        <TableCell>{p.value?.totalContributed}</TableCell>
+                        <TableCell>
+                          {p.userContributed.totalContributed}
+                        </TableCell>
                         <TableCell className="text-right">
-                          {p.value.totalContributed}
+                          {p.value
+                            ? `${p.value["milestone 3 cost"]}`
+                            : `loading`}
                         </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
               </div>
-
-              
             </div>
           </div>
         </>

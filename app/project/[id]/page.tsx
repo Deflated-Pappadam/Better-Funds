@@ -85,7 +85,7 @@ function Page({ params }: { params: { id: string } }) {
         const contributorRef = doc(
           db,
           "contributors",
-          `${walletAddress}`,
+          `${_walletAddress}`,
           "contributions",
           params.id
         );

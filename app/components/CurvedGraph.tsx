@@ -1,11 +1,21 @@
 "use client";
 import React, { ClassAttributes, HTMLAttributes } from "react";
 import { ResponsiveLine } from "@nivo/line";
+import { DocumentData } from "firebase/firestore";
+
+type contributions = {
+  project_id: string;
+  value?: DocumentData;
+  userContributed: DocumentData;
+};
 
 export function CurvedlineChart(
     props: JSX.IntrinsicAttributes &
       ClassAttributes<HTMLDivElement> &
-      HTMLAttributes<HTMLDivElement>
+      HTMLAttributes<HTMLDivElement> &
+      {
+        projectData: contributions[]
+      }
   ) {
     return (
       <div {...props}>
@@ -13,24 +23,24 @@ export function CurvedlineChart(
           data={[
             {
               id: "Contributions",
-              // data: investments.map((d) => ({
-              //   x: d.data.Name,
-              //   y: d.data.totalInvested,
-              // })),
-              data: [
-                {
-                  x: 10,
-                  y: 20,
-                },
-                {
-                  x: 20,
-                  y: 40,
-                },
-                {
-                  x: 30,
-                  y: 60,
-                },
-              ],
+              data: props.projectData.map((d) => ({                
+                x: d.value?.name,
+                y: d.userContributed.totalContributed,
+              })),
+              // data: [
+              //   {
+              //     x: 10,
+              //     y: 20,
+              //   },
+              //   {
+              //     x: 20,
+              //     y: 40,
+              //   },
+              //   {
+              //     x: 30,
+              //     y: 60,
+              //   },
+              // ],
             },
           ]}
           margin={{ top: 10, right: 10, bottom: 40, left: 40 }}
