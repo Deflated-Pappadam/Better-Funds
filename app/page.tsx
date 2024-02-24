@@ -150,7 +150,7 @@ export default function Home() {
       <footer className="flex flex-col min-h-[400px] bg-[#1c1c1c] w-full p-5 justify-center items-center">
 <h1 className="text-[7vw] text-[#f6f6f6]">Better Funds</h1>
 <h2 className="text-[1.5vw] text-[#f6f6f6]">Contributions to Tokens, Projects to Progress, Marketplace to Discover</h2>
-<h3 className="text-[#f6f6f6] text-lg  p-5"> ©️ deflated pappadam </h3>
+<h3 className="text-[#f6f6f6] text-lg  p-5"> ©️ deflated pappadam 2024</h3>
 
 <h4 className="text-[#f6f6f6] p-5">All assets used in this website are generated using stable diffusion</h4>
       </footer>
