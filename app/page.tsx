@@ -3,6 +3,7 @@ import Image from "next/image";
 import NavBar from "./components/NavBar";
 import Datablock from "./components/Datablock";
 import { motion } from "framer-motion"
+import { ArchiveIcon, HandIcon, Link2Icon, PaperPlaneIcon, RocketIcon, TargetIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
   return (
@@ -138,12 +139,12 @@ export default function Home() {
           ‍‍<h1>Join us in making a change .</h1>
         </div>
         <div className="flex flex-wrap gap-6 h-fit p-[4vw] justify-center items-center">
-        <Datablock heading="Blockchain Based" desc="Assured transparency and ease of transaction by utilizing the scopes of crytpo-wallets and tokens available."/>
-        <Datablock heading="Incentives/Rewards" desc="Contributors receive PDM tokens proportional to their contributions, redeemable on our marketplace."/>
-        <Datablock heading="Incremental Funding" desc="Businesses receive funds incrementally based on progress achieved and handled ."/>
-        <Datablock heading="StableCoins and etc" desc="All Crypto donations are converted to StableCoins which make it near to immune to market fluctuations."/>
-        <Datablock heading="Mutually Beneficial" desc="We create an ecosystem that aims to benefit both entrepreneurs and contributors."/>
-        <Datablock heading="Re-finig Fundraisers" desc="Better Funds aims to replace the current framework with a more advanced counterpart."/>
+        <Datablock Icon={Link2Icon} heading="Blockchain Based" desc="Assured transparency and ease of transaction by utilizing the scopes of crytpo-wallets and tokens available."/>
+        <Datablock Icon={ArchiveIcon} heading="Incentives/Rewards" desc="Contributors receive PDM tokens proportional to their contributions, redeemable on our marketplace."/>
+        <Datablock Icon={RocketIcon} heading="Incremental Funding" desc="Businesses receive funds incrementally based on progress achieved and handled ."/>
+        <Datablock Icon={TargetIcon} heading="StableCoins and etc" desc="All Crypto donations are converted to StableCoins which make it near to immune to market fluctuations."/>
+        <Datablock Icon={HandIcon} heading="Mutually Beneficial" desc="We create an ecosystem that aims to benefit both entrepreneurs and contributors."/>
+        <Datablock Icon={PaperPlaneIcon} heading="Re-finig Fundraisers" desc="Better Funds aims to replace the current framework with a more advanced counterpart."/>
          </div>
       </section>
 
