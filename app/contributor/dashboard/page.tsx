@@ -14,6 +14,8 @@ import {
 import NavBar from "@/app/components/NavBar";
 import ConnectWallet from "@/app/components/ConnectWallet";
 import { ethers } from "ethers";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { db } from "@/firebase";
 
 const Businesses = [
   {
@@ -42,6 +44,7 @@ const Businesses = [
 function Page() {
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
+  const investordoc = getDocs(collection(db, 'contributors', `${walletAddress}`, 'contributions'))
 
   useEffect(() => {
     connectWallet();

@@ -11,17 +11,16 @@ function NavBar() {
         <div>Funds</div>
       </a>
       <div className="flex gap-6 text-xl">
-        <div className="cursor-pointer">Home</div>
-        <div className="cursor-pointer">About</div>
+        <a href="/" className="cursor-pointer">Home</a>
+        <a href="/#aboutUs" className="cursor-pointer">About</a>
         <a href="/marketplace" className="cursor-pointer">
           MarketPlace
         </a>
-        <div className="cursor-pointer">Contact</div>
       </div>
       <div className="min-w-[200px]">
-        <button className="bg-[#2d2d2d] text-white rounded-md px-4 py-2  ">
+        <a href="/BetterFunds.pdf" download className="bg-[#2d2d2d] text-white rounded-md px-4 py-2  ">
           Download Abstract
-        </button>
+        </a>
       </div>
     </nav>
   );
