@@ -7,8 +7,18 @@ import { Button } from "@/components/ui/button";
 import { ethers, id } from "ethers";
 import betterFunds from "@/abi/BetterFunds.json";
 import { UpdateIcon } from "@radix-ui/react-icons";
-import RelativeTime from '@yaireo/relative-time'
-import { DocumentData, addDoc, collection, doc, getDoc, increment, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import RelativeTime from "@yaireo/relative-time";
+import {
+  DocumentData,
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  increment,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "@/firebase";
 const relativeTime = new RelativeTime();
 function Page({ params }: { params: { id: string } }) {
@@ -28,16 +38,16 @@ function Page({ params }: { params: { id: string } }) {
   };
 
   useEffect(() => {
-    const docRef = doc(db, "projects", params.id)
+    const docRef = doc(db, "projects", params.id);
     console.log(docRef);
-    
+
     const unsub = onSnapshot(doc(db, "projects", params.id), (doc) => {
-        console.log(doc.data());
-        
-        setProjectData(doc.data());
-    })
+      console.log(doc.data());
+
+      setProjectData(doc.data());
+    });
     return () => unsub();
-}, [params.id])
+  }, [params.id]);
 
   const contributeProject = async () => {
     const contractAddress = "0x20C29A7883356eF364F57224C04C524ffA546525";
@@ -68,20 +78,26 @@ function Page({ params }: { params: { id: string } }) {
         await response.wait();
         console.log("response:", response);
 
-        await updateDoc(doc(db, 'projects', `${params.id}`), {
-            contributors: increment(1),
-            totalContributed: increment(amount ?? 0),
-          })
-        const contributorRef = doc(db, 'contributors', `${walletAddress}`, 'contributions', params.id);
+        await updateDoc(doc(db, "projects", `${params.id}`), {
+          contributors: increment(1),
+          totalContributed: increment(amount ?? 0),
+        });
+        const contributorRef = doc(
+          db,
+          "contributors",
+          `${walletAddress}`,
+          "contributions",
+          params.id
+        );
         const contributorDoc = await getDoc(contributorRef);
         if (!contributorDoc.exists()) {
-            await setDoc(contributorRef, {
-                totalContributed: amount,
-            });
+          await setDoc(contributorRef, {
+            totalContributed: amount,
+          });
         } else {
-            await updateDoc(contributorRef, {
-                totalContributed: increment(amount ?? 0),
-            })
+          await updateDoc(contributorRef, {
+            totalContributed: increment(amount ?? 0),
+          });
         }
         setIsProcessing(false);
       } catch (err) {
@@ -91,21 +107,24 @@ function Page({ params }: { params: { id: string } }) {
     }
   };
   useEffect(() => {
-    if(!projectData) return;
+    if (!projectData) return;
     console.log(projectData);
-    var date = new Date(); // Now
-    date.setDate(date.getDate() + 30);
+    // var date = new Date(); // Now
+    // date.setDate(date.getDate() + 30);
     if (!projectData.endTime) {
-        projectData.endTime = date.getMilliseconds();
+      projectData.endTime = date.getMilliseconds();
     }
     var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
     d.setUTCSeconds(projectData.endTime);
     setDate(d);
-    
-    setProgressPercent((projectData?.totalContributed/projectData["milestone 3 cost"]) * 100)
-    
-  }, [projectData])
-  
+
+    setProgressPercent(
+      (projectData?.totalContributed / projectData["milestone 3 cost"]) * 100
+    );
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectData]);
+
   return (
     <div className="relative h-screen bg-[#fcfcfc]">
       <NavBar />
@@ -140,14 +159,16 @@ function Page({ params }: { params: { id: string } }) {
             </div>
           </div>
         )}
-        <h1 className="mt-5 font-semibold text-[2.5em]">{projectData ? projectData.name : 'loading'}</h1>
+        <h1 className="mt-5 font-semibold text-[2.5em]">
+          {projectData ? projectData.name : "loading"}
+        </h1>
         <p className="text-[1.4rem] max-w-[900px] text-center">
-        {projectData ? projectData.desc : 'loading'}
+          {projectData ? projectData.desc : "loading"}
         </p>
         <div className="mt-12 flex w-full justify-around h-[650px]">
           <div className="w-[70%]">
             <Image
-              src={projectData?.coverImage ?? ''}
+              src={projectData?.coverImage ?? ""}
               alt={""}
               width={1280}
               height={817}
@@ -159,7 +180,8 @@ function Page({ params }: { params: { id: string } }) {
             <div
               className={`w-full h-[20px] bg-slate-200 rounded-md relative my-[5px]`}
             >
-              <div style={{width: `${progressPercent}%`}}
+              <div
+                style={{ width: `${progressPercent}%` }}
                 className={`h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md`}
               />
             </div>
@@ -167,13 +189,18 @@ function Page({ params }: { params: { id: string } }) {
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[15%]" />
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[23%]" />
             <div>
-              <h1 className="font-semibold text-4xl">{projectData?.totalContributed}$</h1>
+              <h1 className="font-semibold text-4xl">
+                {projectData?.totalContributed}$
+              </h1>
               <p className="text-lg">contributed</p>
             </div>
             <div>
-              {projectData?.endTime && <p className="font-semibold text-4xl">{relativeTime.from(date, new Date())}</p>}
+              {projectData?.endTime && (
+                <p className="font-semibold text-4xl">
+                  {relativeTime.from(date, new Date())}
+                </p>
+              )}
               <p className="text-lg">ends in</p>
-              
             </div>
             <div className="text-black rounded-lg p-5">
               <h2 className="font-semibold">Currency</h2>

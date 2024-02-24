@@ -326,10 +326,10 @@ function Page() {
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel>
-                  Use different settings for my mobile devices
+                  Better Funds T&C
                 </FormLabel>
                 <FormDescription>
-                  You can manage your mobile notifications in the{" "}
+                  I hereby agree to the Terms & Conditions of Better Funds and acknowledge that I can be held accountable if I mess up{" "}
                 </FormDescription>
               </div>
             </FormItem>
