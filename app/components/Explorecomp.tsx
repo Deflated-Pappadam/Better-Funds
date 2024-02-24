@@ -20,17 +20,17 @@ function Explorecomp(props:Exploreprops) {
         <div className='px-4 pt-5 flex flex-col gap-5'>
             <h1 className='font-bold text-2xl'>{props.projectName}</h1>
             <div>
-            Raised<h1 className='font-semibold text-lg'> {props.raised} <span className='font-normal texl-md'>out of</span>{props.goal}</h1>
+            Raised<h1 className='font-semibold text-lg'> {props.raised}$ <span className='font-normal texl-md'>out of </span>{props.goal}$</h1>
             </div>
             <p className='text-lg'>{props.desc}</p>
            <div className='flex w-full justify-between px-10'>
            <div>
                 <h1 className='font-semibold text-lg'>{props.contributed}</h1>
-                <p>contributed</p>
+                <p>contributors</p>
             </div>
             <div>
                 <h1 className='font-semibold text-lg'>{props.days}</h1>
-                <p>Days left to go</p>
+                <p>days remaining</p>
             </div>
            </div>
            
