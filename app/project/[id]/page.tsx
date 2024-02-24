@@ -12,6 +12,7 @@ function Page({ params }: { params: { id: string } }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [amount, setAmount] = useState<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showThankyouMsg, setShowThankyouMsg] = useState(true);
   const onAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = !Number.isNaN(e.target.valueAsNumber)
       ? e.target.valueAsNumber
@@ -30,20 +31,22 @@ function Page({ params }: { params: { id: string } }) {
         betterFunds.abi,
         signer
       );
+      console.log(contract);
+
       try {
         let amt = 0;
         if (amount) amt = amount;
-        let len = amt.toString().length;
-        let cost = "0." + "0".repeat(10 - len!) + amt.toString();
-        console.log(cost);
         setIsProcessing(true);
-        const response = await contract.contribute(
-          BigInt(`${params.id}`),
-          {
-            value: ethers.parseUnits("0.11","gwei")
-          }
-        );
+        const idea = await contract.ideas(BigInt(`${params.id}`));
+
+        console.log(idea);
+        const response = await contract.contribute(BigInt(`${params.id}`), {
+          value: ethers.parseUnits(amt.toString(), "gwei"),
+        });
+        console.log(response);
+
         await response.wait();
+
         setIsProcessing(false);
         console.log("response:", response);
       } catch (err) {
@@ -54,9 +57,39 @@ function Page({ params }: { params: { id: string } }) {
   };
   let progress = "60%";
   return (
-    <div className=" h-screen bg-[#fcfcfc]">
+    <div className="relative h-screen bg-[#fcfcfc]">
       <NavBar />
       <div className="px-[5%] flex flex-col items-center text-black">
+        {showThankyouMsg && (
+          <div className="absolute h-full w-full flex items-center justify-center">
+            <div className="bg-white drop-shadow-md w-4/12 mt-[10%] text-black rounded-lg p-5">
+              <h2 className="font-bold text-5xl mb-4 text-[#2d2d2d]">
+                Thank You! 🎉
+              </h2>
+              <p>Thank you for your donation towards Project Shelter.</p>
+              <p>
+                As a token of our appreciation, we would like to send you{" "}
+                {Math.floor(amount! / 100)} Stray NFTs as a thank you for your
+                support.
+              </p>
+              <p>
+                You can view your NFTs{" "}
+                <a
+                  className="text-[#2d2d2d] underline font-bold"
+                  href="https://testnets.opensea.io/collection/project-shelter"
+                >
+                  here
+                </a>
+              </p>
+              <button
+                onClick={() => setShowThankyouMsg(false)}
+                className="p-1 px-4 mt-5 border-4 rounded-lg font-semibold text-[#2d2d2d] border-[#2d2d2d] hover:bg-[#2d2d2d] hover:text-white"
+              >
+                Back
+              </button>
+            </div>
+          </div>
+        )}
         <h1 className="mt-5 font-semibold text-[2.5em]">some font name</h1>
         <p className="text-[1.4rem] max-w-[900px] text-center">
           Some random description about the project Some random description
