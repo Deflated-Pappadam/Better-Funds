@@ -9,7 +9,7 @@ desc:string;
 
 function Datablock(props:Dataprops) {
   return (
-    <div className='flex flex-col w-[500px] h-[200px] bg-[#e8e8e8] p-[2vw] rounded-[1.5rem] justify-center '>
+    <div className='flex flex-col w-[470px] h-[200px] bg-[#e8e8e8] p-[2vw] rounded-[1.5rem] justify-center '>
       <div className='flex text-[1.5vw] poppins-medium gap-2 items-center '>
         <PaperPlaneIcon className='size-[30px]'/>
      

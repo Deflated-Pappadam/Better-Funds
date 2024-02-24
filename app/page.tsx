@@ -117,7 +117,7 @@ export default function Home() {
           <h1 className="text-black">...and much more. </h1>
           ‍‍<h1>Join thousands making the switch.</h1>
         </div>
-        <div className="flex flex-wrap gap-6 h-fit p-[4vw]">
+        <div className="flex flex-wrap gap-6 h-fit p-[4vw] justify-center items-center">
         <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
         <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
         <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>

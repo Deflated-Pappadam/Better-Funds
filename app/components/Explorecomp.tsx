@@ -15,8 +15,8 @@ type Exploreprops={
 
 function Explorecomp(props:Exploreprops) {
   return (
-    <div className='w-[500px] h-fit py-[2vw] border-2 shadow-md rounded-md'>
-        <Image src={props.imgUrl} alt={''} width={1280} height={817} className='max-w-[500] max-h-[150px] object-cover rounded-t-sm'/>
+    <div className='w-[500px] h-fit p-[2vw] border-2 shadow-md rounded-md'>
+        <Image src={props.imgUrl} alt={''} width={1280} height={817} className='max-w-[500] max-h-[200px] object-cover rounded-t-sm'/>
         <div className='px-4 pt-5 flex flex-col gap-5'>
             <h1 className='font-bold text-2xl'>{props.projectName}</h1>
             <div>
