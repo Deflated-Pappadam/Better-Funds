@@ -1,10 +1,14 @@
 import React from "react";
 import MarketBox from "../components/MarketBox";
+import {  BookIcon, CarFrontIcon, CarrotIcon, ComputerIcon, ShirtIcon } from "lucide-react";
+import NavBar from "../components/NavBar";
 
 function Page() {
   return (
-    <div className="min-h-screen w-full h-full flex justify-between poppins-regular">
-      <div className="flex flex-col  md:w-[45%] p-10 justify-start items-start h-full ">
+    <div className="min-h-screen w-full h-full flex flex-col justify-between poppins-regular">
+        <NavBar/>
+<div className="flex w-full">
+<div className="flex flex-col  md:w-[45%] p-10 justify-start items-start h-full ">
         <div className="flex flex-col h-[275px]  justify-center border-[#38383848] border-2 rounded-xl  poppins-medium text-xl p-5 m-2 ">
           Your Wallet
           <div className="grid grid-cols-2 p-3">
@@ -22,26 +26,73 @@ function Page() {
               </h1>
               <h2 className="text-sm text-[#3d3d3dba]">wallet Address</h2>
             </div>
+          </div> 
+        </div>
+        <div className="p-10 my-2">
+          <h1 className="text-[2vw]">Categories</h1>
+          <div className="text-[1.5vw] flex items-center gap-2 text-[#2d2d2dcd]  my-2">
+            <CarFrontIcon /> Vehicles
+          </div>
+          <div className="text-[1.5vw] flex items-center gap-2 text-[#2d2d2dcd] my-2">
+            <CarrotIcon /> Food
+          </div>
+          <div className="text-[1.5vw] flex items-center gap-2 text-[#2d2d2dcd] my-2">
+            <ComputerIcon /> Electronics
+          </div>
+          <div className="text-[1.5vw] flex items-center gap-2 text-[#2d2d2dcd] my-2">
+            <BookIcon /> Book
+          </div>
+          <div className="text-[1.5vw] flex items-center gap-2 text-[#2d2d2dcd] my-2">
+            <ShirtIcon/> Clothes
           </div>
         </div>
-        <div className="p-4">
-            <h1 className="text-[2vw]">Categories</h1>
-            <div>
-            
-            </div>
-        </div>
       </div>
-      
+
       <div className="flex flex-wrap w-full gap-2 h-fit">
-
-       <MarketBox ImageUrl="/carrot.png" cost="1" name="Carrot" desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat " id=""/>
-       <MarketBox ImageUrl="/carrot.png" cost="1" name="Carrot" desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat " id=""/>
-       <MarketBox ImageUrl="/carrot.png" cost="1" name="Carrot" desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat " id=""/>
-       <MarketBox ImageUrl="/carrot.png" cost="1" name="Carrot" desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat " id=""/>
-       <MarketBox ImageUrl="/carrot.png" cost="1" name="Carrot" desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat " id=""/>
-       <MarketBox ImageUrl="/carrot.png" cost="1" name="Carrot" desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat " id=""/>
-
+        <MarketBox
+          ImageUrl="/carrot.png"
+          cost="1"
+          name="Carrot"
+          desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+          id=""
+        />
+        <MarketBox
+          ImageUrl="/carrot.png"
+          cost="1"
+          name="Carrot"
+          desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+          id=""
+        />
+        <MarketBox
+          ImageUrl="/carrot.png"
+          cost="1"
+          name="Carrot"
+          desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+          id=""
+        />
+        <MarketBox
+          ImageUrl="/carrot.png"
+          cost="1"
+          name="Carrot"
+          desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+          id=""
+        />
+        <MarketBox
+          ImageUrl="/carrot.png"
+          cost="1"
+          name="Carrot"
+          desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+          id=""
+        />
+        <MarketBox
+          ImageUrl="/carrot.png"
+          cost="1"
+          name="Carrot"
+          desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+          id=""
+        />
       </div>
+</div>
     </div>
   );
 }

@@ -14,7 +14,7 @@ Better
       <div className='flex gap-6 text-xl'>
         <div className='cursor-pointer'>Home</div>
         <div className='cursor-pointer'>About</div>
-        <div className='cursor-pointer'>Smthn</div>
+        <a href="/marketplace" className='cursor-pointer'>MarketPlace</a>
         <div className='cursor-pointer'>Contact</div>
       </div>
       <div className='min-w-[200px]'>
