@@ -144,7 +144,7 @@ function Page() {
                     <TableRow>
                       <TableHead className="w-[120px]">Business</TableHead>
                       <TableHead>Description</TableHead>
-                      <TableHead>Invested</TableHead>
+                      <TableHead>Contributed</TableHead>
                       <TableHead className="text-right">Goal</TableHead>
                     </TableRow>
                   </TableHeader>
