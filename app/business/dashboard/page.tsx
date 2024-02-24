@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import NavBar from "@/app/components/NavBar";
 
 const Businesses = [
   {
@@ -36,9 +37,9 @@ const Businesses = [
 
 function page() {
   return (
-    <div className="min-h-screen bg-[#fcfcfc]  pt-[5%] px-[5%] poppins-regular text-[#2d2d2d]">
-      
-      <div className="flex flex-col w-full gap-10">
+    <div className="min-h-screen bg-[#fcfcfc]  py-[1vw] px-[5%] poppins-regular text-[#2d2d2d]">
+      <NavBar/>
+      <div className="flex flex-col w-full gap-10 py-5">
         <div className="flex md:flex-row flex-col w-full justify-between">
           <div>
             <h1 className="text-[4vw]">Rhon S George</h1>
