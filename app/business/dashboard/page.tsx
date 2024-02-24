@@ -11,6 +11,15 @@ import {
 import NavBar from "@/app/components/NavBar";
 import { ethers } from "ethers";
 import ConnectWallet from "@/app/components/ConnectWallet";
+import {
+  DocumentData,
+  collection,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "@/firebase";
+import { Button } from "@/components/ui/button";
 
 const Businesses = [
   {
@@ -36,14 +45,37 @@ const Businesses = [
   },
 ];
 
+type docData = {
+  id: string;
+  value: DocumentData;
+};
+
 function Page() {
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
+  const [data, setdata] = useState<docData[]>();
 
   useEffect(() => {
     connectWallet();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!walletAddress) return;
+    const q = query(
+      collection(db, "projects"),
+      where("owner", "==", walletAddress)
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setdata(
+        snapshot.docs.map((doc) => {
+          console.log(doc);
+          return { id: doc.id, value: doc.data() };
+        })
+      );
+    });
+    return unsubscribe;
+  }, [walletAddress]);
 
   async function connectWallet() {
     if (!connected && window.ethereum) {
@@ -70,21 +102,22 @@ function Page() {
               <div>
                 <h1 className="text-[4vw]">Rhon S George</h1>
                 <h2 className="text-[2vw]">Entrepreneur</h2>
+                <Button className="mt-5" >Ideate</Button>
               </div>
               <div className="flex flex-col md:w-[30%] h-[275px]  justify-center border-[#38383848] border-2 rounded-xl  poppins-medium text-xl p-5 m-2">
                 My Numbers
                 <div className="grid grid-cols-2 p-3">
                   <div className="p-4">
-                    <h1 className="text-2xl">0 $</h1>
+                    <h1 className="text-2xl">{data ? Array.from(data.values()).reduce((acc, data) => acc + data.value.totalContributed, 0) : 'loading'} $</h1>
                     <h2 className="text-sm text-[#3d3d3dba]">Total</h2>
                   </div>
                   <div className="p-4">
-                    <h1 className="text-2xl">0%</h1>
+                    <h1 className="text-2xl">10%</h1>
                     <h2 className="text-sm text-[#3d3d3dba]">Growth</h2>
                   </div>
                   <div className="p-4">
-                    <h1 className="text-2xl">0 $</h1>
-                    <h2 className="text-sm text-[#3d3d3dba]">Added today</h2>
+                    <h1 title={walletAddress ? walletAddress : 'loading'} className="text-2xl text-ellipsis truncate">{walletAddress ? walletAddress : 'loading'}</h1>
+                    <h2 className="text-sm text-[#3d3d3dba]">Wallet</h2>
                   </div>
                 </div>
               </div>
@@ -102,15 +135,15 @@ function Page() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {Businesses.map((Business) => (
-                      <TableRow key={Business.name}>
+                    {data?.map((doc) => (
+                      <TableRow key={doc.id}>
                         <TableCell className="font-medium">
-                          {Business.name}
+                          {doc.value.name}
                         </TableCell>
-                        <TableCell>{Business.description}</TableCell>
-                        <TableCell>{Business.investedAmount}</TableCell>
+                        <TableCell>{doc.value.desc}</TableCell>
+                        <TableCell>{doc.value.totalContributed}</TableCell>
                         <TableCell className="text-right">
-                          {Business.goalAmount}
+                          {doc.value["milestone 3 cost"]}
                         </TableCell>
                       </TableRow>
                     ))}
