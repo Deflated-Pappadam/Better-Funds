@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 
 function page() {
+    let progress = '60%'
   return (
     <div className='w-screen h-screen bg-[#fcfcfc] '>
         <NavBar/>
@@ -18,8 +19,13 @@ function page() {
                 <Image src={'/field-8172968_1280.jpg'} alt={''} width={1280} height={817} className='max-h-[650px]'/>
             </div>
             <div className='w-[27%] flex flex-col gap-9 mt-6'>
-                <div className='w-full h-[20px] bg-gradient-to-r from-green-500 from-0 via-slate-200 via-50% to-slate-200 to-100% rounded-md relative my-[5px]'/>
-                <div className='w-[30px] h-[30px] rounded-full bg-black absolute ml-[0%]'/>
+                {/* <div className={`w-full h-[20px] bg-gradient-to-r from-green-300 from-0 via-slate-200 via-50% to-slate-200 to-100% rounded-md relative my-[5px]`}/> */}
+                <div className={`w-full h-[20px] bg-slate-200 rounded-md relative my-[5px]`}>
+                    <div className={`w-[${progress}] h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md`}/>
+                </div>
+                <div className='w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[5%]'/>
+                <div className='w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[15%]'/>
+                <div className='w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[23%]'/>
                 <div>
                     <h1 className='font-semibold text-4xl'>100</h1>
                     <p className='text-lg'>contributed</p>
