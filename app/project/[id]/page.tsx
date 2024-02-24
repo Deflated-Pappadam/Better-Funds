@@ -167,8 +167,9 @@ function Page({ params }: { params: { id: string } }) {
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[15%]" />
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[23%]" />
             <div>
-              <h1 className="font-semibold text-4xl">{projectData?.totalContributed}$</h1>
-              <p className="text-lg">contributed</p>
+              <h1 className="font-semibold text-4xl">{projectData?.totalContributed}$ / {projectData?.["milestone 3 cost"]}$</h1>
+              {projectData?.totalContributed>projectData?.["milestone 3 cost"]? <p className="text-lg">Goal Reached</p>: <p className="text-lg">contributed.</p>}
+             
             </div>
             <div>
               {projectData?.endTime && <p className="font-semibold text-4xl">{relativeTime.from(date, new Date())}</p>}

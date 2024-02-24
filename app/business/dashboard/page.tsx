@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 type docData = {
   id: string;
@@ -30,6 +31,7 @@ function Page() {
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [data, setdata] = useState<docData[]>();
+  const router = useRouter()
 
   useEffect(() => {
     connectWallet();
@@ -77,8 +79,8 @@ function Page() {
             <div className="flex md:flex-row flex-col w-full justify-between">
               <div>
                 <h1 className="text-[4vw]">Shibu RP</h1>
-                <h2 className="text-[2vw]">Entrepreneur</h2>
-                <Button className="mt-5">Ideate</Button>
+                <h2 className="text-[2vw] my-5">Entrepreneur</h2>
+                <a href="/project/create" className="my-10 bg-[#2d2d2d] text-white px-4 py-2 rounded-xl">Ideate</a>
               </div>
               <div className="flex flex-col md:w-[30%] h-[275px]  justify-center border-[#38383848] border-2 rounded-xl  poppins-medium text-xl p-5 m-2">
                 My Numbers
@@ -125,7 +127,8 @@ function Page() {
                   </TableHeader>
                   <TableBody>
                     {data?.map((doc) => (
-                      <TableRow key={doc.id}>
+                    
+                      <TableRow key={doc.id} onClick={() => router.push(`/project/${doc.id}`)}>
                         <TableCell className="font-medium">
                           {doc.value.name}
                         </TableCell>
