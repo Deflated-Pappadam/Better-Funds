@@ -154,16 +154,6 @@ function Page() {
                 id=""
               />
               <MarketBox
-               buy={buyProduct}
-             
-                ImageUrl="/carrot.png"
-                cost="1"
-                name="Carrot"
-                desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
-                id=""
-              />
-
-              <MarketBox
                 buy={buyProduct}
                 ImageUrl="/carrot.png"
                 cost="1"
