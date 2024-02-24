@@ -7,8 +7,8 @@ export default function Home() {
       <NavBar/>
       <section className="flex flex-col min-h-screen justify-center items-center">
         <div className="flex flex-col justify-center items-center leading-none tracking-none p-[30px]">
-          <h1 className="text-[#2d2d2d] text-[6vw] font-open-sans ">Rhon</h1>
-          <h1 className="text-[#2d2d2d] text-[6vw] font-open-sans ">Parayum</h1>
+          <h1 className="text-[#2d2d2d] text-[6vw] font-open-sans tracking-tighter">Better</h1>
+          <h1 className="text-[#2d2d2d] text-[6vw] font-open-sans tracking-tighter">Funds</h1>
         </div>
         <h2 className="w-[30%] text-[#616161] text-center text-[1.2vw]">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et
