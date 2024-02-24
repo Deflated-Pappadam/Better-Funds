@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import { ethers } from "ethers";
+import betterFunds from "@/abi/BetterFunds.json";
 
 const formSchema = z.object({
   name: z
@@ -65,8 +67,33 @@ const formSchema = z.object({
   terms: z.boolean().default(false).optional(),
 });
 
+const contractAddress = "0x20C29A7883356eF364F57224C04C524ffA546525";
+
 function Page() {
-  const [isSubmitting, setIsSubmitting] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState("");
+
+  useEffect(() => {
+    connectWallet()  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  
+
+  async function connectWallet() {
+    if (!connected && window.ethereum) {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const _walletAddress = await signer.getAddress();
+      setConnected(true);
+      setWalletAddress(_walletAddress);
+    } else {
+    //   window.ethereum.selectedAddress = null;
+      setConnected(false);
+      setWalletAddress("");
+    }
+  }
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,12 +101,34 @@ function Page() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
     console.log(values);
+    if (!window.ethereum) return;
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider?.getSigner();
+    const contract = new ethers.Contract(
+      contractAddress,
+      betterFunds.abi,
+      signer
+    );
+    try {
+      const id = await contract.count();
+      console.log(Number(id));
+      
+      const response = await contract.launch(values.milestone3cost);
+      await response.wait();
+      console.log("response:", response);
+      setIsSubmitting(false);
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <Form {...form}>
+    <div>
+       {connected ?     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 p-10 border m-10 rounded-md"
@@ -158,7 +207,7 @@ function Page() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Milestone Cost"
+                      placeholder="Milestone Amount"
                       {...field}
                     />
                   </FormControl>
@@ -191,7 +240,7 @@ function Page() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Milestone Cost"
+                      placeholder="Milestone Amount"
                       {...field}
                     />
                   </FormControl>
@@ -224,7 +273,7 @@ function Page() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Milestone Cost"
+                      placeholder="Milestone Amount"
                       {...field}
                     />
                   </FormControl>
@@ -267,7 +316,12 @@ function Page() {
           )}
         </Button>
       </form>
-    </Form>
+    </Form>:
+    <div>
+      <Button onClick={connectWallet}>Connect Wallet</Button>
+    </div>}
+    </div>
+
   );
 }
 
