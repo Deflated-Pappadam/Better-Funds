@@ -127,17 +127,35 @@ function Page() {
               </div>
             </div>
 
-            <div className="flex flex-wrap w-full gap-2 h-fit">
+            <div className="flex flex-wrap w-full  h-fit">
               <MarketBox
-                buy={buyProduct}
-                ImageUrl="/carrot.png"
+              buy={buyProduct}
+                ImageUrl="/item_plushie.png"
                 cost="1"
-                name="Carrot"
-                desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+                name="Mushrrom Plushie"
+                desc="A cool looking plushie that is actually cool"
                 id=""
               />
               <MarketBox
-                buy={buyProduct}
+
+               buy={buyProduct}
+                ImageUrl="/item_figure.png"
+                cost="1"
+                name="Anya Action Figure"
+                desc="A cool action figure of Anya Forger from the forger family "
+                id=""
+              />
+              <MarketBox
+               buy={buyProduct}
+                ImageUrl="/item_choco.png"
+                cost="1"
+                name="Rich Chocolate"
+                desc=" Indulge in the rich and creamy delight of our artisanal chocolate bars"
+                id=""
+              />
+              <MarketBox
+               buy={buyProduct}
+             
                 ImageUrl="/carrot.png"
                 cost="1"
                 name="Carrot"
@@ -150,15 +168,25 @@ function Page() {
                 ImageUrl="/carrot.png"
                 cost="1"
                 name="Carrot"
-                desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+                desc="Some natural carrots fresh from rhon's farm , buy it and eat it"
                 id=""
               />
               <MarketBox
-                buy={buyProduct}
-                ImageUrl="/carrot.png"
+               buy={buyProduct}
+                ImageUrl="/item_ball.png"
                 cost="1"
-                name="Carrot"
-                desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit a fugiat "
+                name="Football"
+                desc="
+                Experience the thrill of the game with our premium-quality football. "
+                id=""
+              />
+              <MarketBox
+               buy={buyProduct}
+                ImageUrl="/item_hoodie.png"
+                cost="1"
+                name="Hoodie"
+                desc="L
+                Wrap yourself in comfort and style with our cozy hoodie, designed to keep you warm and fashionable "
                 id=""
               />
             </div>

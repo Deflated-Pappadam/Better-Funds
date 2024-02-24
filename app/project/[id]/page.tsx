@@ -180,9 +180,8 @@ function Page({ params }: { params: { id: string } }) {
             <div
               className={`w-full h-[20px] bg-slate-200 rounded-md relative my-[5px]`}
             >
-              <div
-                style={{ width: `${progressPercent}%` }}
-                className={`h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md`}
+              <div style={{width: `${progressPercent}%`}}
+                className={`h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md max-w-[100%]`}
               />
             </div>
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[5%]" />

@@ -14,42 +14,44 @@ import {
 import NavBar from "@/app/components/NavBar";
 import ConnectWallet from "@/app/components/ConnectWallet";
 import { ethers } from "ethers";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  DocumentData,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+} from "firebase/firestore";
 import { db } from "@/firebase";
 
-const Businesses = [
-  {
-    name: "Business 1",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac tortor tellus. Donec vitae ultricies nibh. Duis fermentum orci lectus, ut fermentum libero malesuada non. Quisque accumsan blandit molestie. Cras faucibus, mi nec suscipit posuere, mi mi bibendum libero, ut pellentesque lacus tortor nec quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet dapibus neque. Maecenas blandit hendrerit metus, a sollicitudin urna venenatis ut.",
-    investedAmount: "$250.00",
-    goalAmount: "$1000.00",
-  },
-  {
-    name: "Business 2",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac tortor tellus. Donec vitae ultricies nibh. Duis fermentum orci lectus, ut fermentum libero malesuada non. Quisque accumsan blandit molestie. Cras faucibus, mi nec suscipit posuere, mi mi bibendum libero, ut pellentesque lacus tortor nec quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet dapibus neque. Maecenas blandit hendrerit metus, a sollicitudin urna venenatis ut.",
-    investedAmount: "$250.00",
-    goalAmount: "$1000.00",
-  },
-  {
-    name: "Business 3",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac tortor tellus. Donec vitae ultricies nibh. Duis fermentum orci lectus, ut fermentum libero malesuada non. Quisque accumsan blandit molestie. Cras faucibus, mi nec suscipit posuere, mi mi bibendum libero, ut pellentesque lacus tortor nec quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet dapibus neque. Maecenas blandit hendrerit metus, a sollicitudin urna venenatis ut.",
-    investedAmount: "$250.00",
-    goalAmount: "$1000.00",
-  },
-];
+type contributions = {
+  project_id: string;
+  value: DocumentData;
+};
 
 function Page() {
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
-  const investordoc = getDocs(collection(db, 'contributors', `${walletAddress}`, 'contributions'))
+  const [investordoc, setInvestordoc] = useState<contributions[]>([]);
+  const [projectDoc, setProjectDoc] = useState<contributions[]>([]);
+
+  console.log(projectDoc);
 
   useEffect(() => {
     connectWallet();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const contributorsRef = collection(db, "contributors", walletAddress, "contributions");
+    const docs = getDocs(contributorsRef)
+  
+    investordoc.map(async (elem) => {
+      const ref = doc(db, "projects", elem.project_id);
+      const d = await getDoc(ref);
+      setProjectDoc([...projectDoc, { project_id: d.id, value: d.data }]);
+    });
+  }, [walletAddress]);
 
   async function connectWallet() {
     if (!connected && window.ethereum) {
@@ -101,8 +103,8 @@ function Page() {
                   </div>
                   <div className="p-4">
                     <h2 className="text-sm text-[#3d3d3dba]">Wallet Address</h2>
-                    <h1 className="text-sm">
-                      0x020E160544A4ef69b8A21704CC04D8042138cc47
+                    <h1 className="text-sm text-ellipses truncate">
+                      {walletAddress}
                     </h1>
                   </div>
                 </div>
@@ -122,15 +124,15 @@ function Page() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {Businesses.map((Business) => (
-                      <TableRow key={Business.name}>
+                    {projectDoc.map((p) => (
+                      <TableRow key={p.project_id}>
                         <TableCell className="font-medium">
-                          {Business.name}
+                          {p.value.desc}
                         </TableCell>
-                        <TableCell>{Business.description}</TableCell>
-                        <TableCell>{Business.investedAmount}</TableCell>
+                        <TableCell>{p.value.totalContributed}</TableCell>
+                        <TableCell>{p.value['milestiones 3  cost']}</TableCell>
                         <TableCell className="text-right">
-                          {Business.goalAmount}
+                          {p.value.totalContributed}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -138,30 +140,7 @@ function Page() {
                 </Table>
               </div>
 
-              <div className="w-[30%] h-[400px] border-[#38383848] border-2 rounded-xl p-5 m-2">
-                <h1 className="text-[1.5vw]">Trending</h1>
-                <Table className="my-2">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[120px]">Business</TableHead>
-                      <TableHead className="text-right">Goal</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {Businesses.map((Business) => (
-                      <TableRow key={Business.name}>
-                        <TableCell className="font-medium">
-                          {Business.name}
-                        </TableCell>
-
-                        <TableCell className="text-right">
-                          {Business.goalAmount}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+              
             </div>
           </div>
         </>
