@@ -127,6 +127,9 @@ function Page() {
         console.log("Image uploaded!");
       })
       setDoc(doc(db, 'projects', String(Number(id))), {
+        owner: walletAddress,
+        contributors:0,
+        totalContributed:0,
         name: values.name,
         desc: values.description,
         'milestone 1 description': values.milestone1desc,
