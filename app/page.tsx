@@ -18,7 +18,7 @@ export default function Home() {
           </h1>
         </div>
         <h2 className="w-[30%] text-[#616161] text-center text-[1.2vw]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et
+        Your Token, Your Impact, Our Marketplace
          
         </h2>
         <button className="text-white text-xl px-6 py-3 bg-blue-500 rounded-xl m-2">
@@ -117,7 +117,7 @@ export default function Home() {
           <h1 className="text-black">...and much more. </h1>
           ‍‍<h1>Join thousands making the switch.</h1>
         </div>
-        <div className="flex flex-wrap gap-6 h-fit p-[4vw]">
+        <div className="flex flex-wrap gap-6 h-fit p-[4vw] justify-center items-center">
         <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
         <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
         <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
