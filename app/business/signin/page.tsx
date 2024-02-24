@@ -14,7 +14,7 @@ function Page() {
   
 
   async function connectWallet() {
-    if (!connected) {
+    if (!connected && window.ethereum) {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const _walletAddress = await signer.getAddress();

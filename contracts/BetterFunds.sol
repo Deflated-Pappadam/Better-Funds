@@ -37,6 +37,7 @@ contract BetterFunds is ERC20 {
     constructor() ERC20("Pappadam Token", "PDM") {
         owner = msg.sender;
         maxDuration = 2592000;
+        count = 0;
     }
 
     function launch(uint _goal) external {
