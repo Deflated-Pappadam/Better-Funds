@@ -17,6 +17,16 @@ export default function Home() {
         <button className="text-white text-xl px-6 py-3 bg-blue-500 rounded-xl m-2">
           Join Now
         </button>
+        <div className="flex gap-[2vw] p-5">
+          <Image src="/books.png" alt="" width={1080} height={1080} className="w-[200px] rounded-xl translate-y-[5vw]"/>
+          <Image src="/people.png" alt="" width={1080} height={1080} className="w-[200px] rounded-xl "/>
+          <Image src="/cybertruck.png" alt="" width={1080} height={1080} className="w-[200px] rounded-xl  translate-y-[5vw]"/>
+          <Image src="/batman.png" alt="" width={1080} height={1080} className="w-[200px] rounded-xl  "/>
+          <Image src="/plushie.png" alt="" width={1080} height={1080} className="w-[200px] rounded-xl  translate-y-[5vw]"/>
+        </div>
+      </section>
+      <section id="aboutUs" className="w-full mt-[200px] px-[12vw] text-start poppins-medium">
+        <h1 className="text-[3vw] text-[#2d2d2d9f] "><span className="text-[#2d2d2d] font-open-sans">Better Funds</span> is Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur expedita mollitia optio, molestiae voluptatum</h1>
       </section>
     </main>
   );
