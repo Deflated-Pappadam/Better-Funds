@@ -101,6 +101,13 @@ function Page() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      description: "",
+      milestone1desc: "",
+      milestone2desc: "",
+      milestone3desc: "",
+      milestone1cost: 0,
+      milestone2cost: 0,
+      milestone3cost: 0,
     },
   });
 
@@ -122,10 +129,11 @@ function Page() {
       const response = await contract.launch(values.milestone3cost);
       await response.wait();
       console.log("response:", response);
-      const storageRef = ref(storage, `project/${values.coverImage.name}`)
-      uploadBytes(storageRef, values.coverImage).then((snapshot) => {
-        console.log("Image uploaded!");
-      })
+
+      const idea = await contract.ideas(id);
+      
+      const storageRef = ref(storage, `project/${values.coverImage.name.replaceAll(" ", "-")}`)
+      await uploadBytes(storageRef, values.coverImage)
       setDoc(doc(db, 'projects', String(Number(id))), {
         owner: walletAddress,
         contributors:0,
@@ -138,7 +146,8 @@ function Page() {
         'milestone 1 cost': values.milestone1cost,
         'milestone 2 cost': values.milestone2cost,
         'milestone 3 cost': values.milestone3cost,
-        coverImage: await getDownloadURL(storageRef)
+        coverImage: await getDownloadURL(storageRef),
+        endTime: Number(idea[4]),
       })
       setIsSubmitting(false);
     } catch (error) {

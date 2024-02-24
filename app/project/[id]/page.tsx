@@ -1,18 +1,25 @@
 "use client";
 
 import NavBar from "@/app/components/NavBar";
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ethers } from "ethers";
+import { ethers, id } from "ethers";
 import betterFunds from "@/abi/BetterFunds.json";
 import { UpdateIcon } from "@radix-ui/react-icons";
-
+import RelativeTime from '@yaireo/relative-time'
+import { DocumentData, addDoc, collection, doc, getDoc, increment, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "@/firebase";
+const relativeTime = new RelativeTime();
 function Page({ params }: { params: { id: string } }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [amount, setAmount] = useState<number | null>(null);
+  const [walletAddress, setWalletAddress] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [showThankyouMsg, setShowThankyouMsg] = useState(true);
+  const [showThankyouMsg, setShowThankyouMsg] = useState(false);
+  const [projectData, setProjectData] = useState<DocumentData>();
+  const [progressPercent, setProgressPercent] = useState(0);
+  const [date, setDate] = useState<Date>(new Date());
   const onAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = !Number.isNaN(e.target.valueAsNumber)
       ? e.target.valueAsNumber
@@ -20,12 +27,25 @@ function Page({ params }: { params: { id: string } }) {
     setAmount(value);
   };
 
+  useEffect(() => {
+    const docRef = doc(db, "projects", params.id)
+    console.log(docRef);
+    
+    const unsub = onSnapshot(doc(db, "projects", params.id), (doc) => {
+        console.log(doc.data());
+        
+        setProjectData(doc.data());
+    })
+    return () => unsub();
+}, [params.id])
+
   const contributeProject = async () => {
     const contractAddress = "0x20C29A7883356eF364F57224C04C524ffA546525";
     if (window.ethereum) {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const _walletAddress = await signer.getAddress();
+      setWalletAddress(_walletAddress);
       const contract = new ethers.Contract(
         contractAddress,
         betterFunds.abi,
@@ -46,16 +66,46 @@ function Page({ params }: { params: { id: string } }) {
         console.log(response);
 
         await response.wait();
-
-        setIsProcessing(false);
         console.log("response:", response);
+
+        await updateDoc(doc(db, 'projects', `${params.id}`), {
+            contributors: increment(1),
+            totalContributed: increment(amount ?? 0),
+          })
+        const contributorRef = doc(db, 'contributors', `${walletAddress}`, 'contributions', params.id);
+        const contributorDoc = await getDoc(contributorRef);
+        if (!contributorDoc.exists()) {
+            await setDoc(contributorRef, {
+                totalContributed: amount,
+            });
+        } else {
+            await updateDoc(contributorRef, {
+                totalContributed: increment(amount ?? 0),
+            })
+        }
+        setIsProcessing(false);
       } catch (err) {
         setIsProcessing(false);
         console.log("error:", err);
       }
     }
   };
-  let progress = "60%";
+  useEffect(() => {
+    if(!projectData) return;
+    console.log(projectData);
+    var date = new Date(); // Now
+    date.setDate(date.getDate() + 30);
+    if (!projectData.endTime) {
+        projectData.endTime = date.getMilliseconds();
+    }
+    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(projectData.endTime);
+    setDate(d);
+    
+    setProgressPercent((projectData?.totalContributed/projectData["milestone 3 cost"]) * 100)
+    
+  }, [projectData])
+  
   return (
     <div className="relative h-screen bg-[#fcfcfc]">
       <NavBar />
@@ -90,15 +140,14 @@ function Page({ params }: { params: { id: string } }) {
             </div>
           </div>
         )}
-        <h1 className="mt-5 font-semibold text-[2.5em]">some font name</h1>
+        <h1 className="mt-5 font-semibold text-[2.5em]">{projectData ? projectData.name : 'loading'}</h1>
         <p className="text-[1.4rem] max-w-[900px] text-center">
-          Some random description about the project Some random description
-          about the project Some random description about the project.
+        {projectData ? projectData.desc : 'loading'}
         </p>
         <div className="mt-12 flex w-full justify-around h-[650px]">
           <div className="w-[70%]">
             <Image
-              src={"/field-8172968_1280.jpg"}
+              src={projectData?.coverImage ?? ''}
               alt={""}
               width={1280}
               height={817}
@@ -110,20 +159,21 @@ function Page({ params }: { params: { id: string } }) {
             <div
               className={`w-full h-[20px] bg-slate-200 rounded-md relative my-[5px]`}
             >
-              <div
-                className={`w-[${progress}] h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md`}
+              <div style={{width: `${progressPercent}%`}}
+                className={`h-full bg-gradient-to-r from-green-400 to-green-300 rounded-md`}
               />
             </div>
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[5%]" />
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[15%]" />
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[23%]" />
             <div>
-              <h1 className="font-semibold text-4xl">100</h1>
+              <h1 className="font-semibold text-4xl">{projectData?.totalContributed}$</h1>
               <p className="text-lg">contributed</p>
             </div>
             <div>
-              <h1 className="font-semibold text-4xl">50</h1>
-              <p className="text-lg">days left to go</p>
+              {projectData?.endTime && <p className="font-semibold text-4xl">{relativeTime.from(date, new Date())}</p>}
+              <p className="text-lg">ends in</p>
+              
             </div>
             <div className="text-black rounded-lg p-5">
               <h2 className="font-semibold">Currency</h2>
@@ -149,7 +199,7 @@ function Page({ params }: { params: { id: string } }) {
                     name=""
                     id=""
                   />
-                  <p className="w-[50px] text-md font-semibold">INR</p>
+                  <p className="w-[50px] text-md font-semibold">USD</p>
                 </div>
                 <div className="flex text-right text-sm font-medium justify-end w-full bg-slate-100 p-1 rounded-md">
                   <p dir="rtl" className="w-full px-2 start-0">
