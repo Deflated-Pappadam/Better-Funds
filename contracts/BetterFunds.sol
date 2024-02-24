@@ -87,7 +87,7 @@ contract BetterFunds is ERC20 {
     }
 
     function buyProduct(uint price) public  {
-        _burn(msg.sender, price);
+        _burn(msg.sender, price * (10 ** decimals()));
     }
 
     // function withdraw(uint _id) public {

@@ -24,6 +24,7 @@ import betterFunds from "@/abi/BetterFunds.json";
 import { setDoc,doc } from "firebase/firestore";
 import { db, storage } from "@/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z
@@ -76,6 +77,7 @@ function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
+  const router =useRouter();
 
   useEffect(() => {
     connectWallet()  
@@ -150,6 +152,7 @@ function Page() {
         endTime: Number(idea[4]),
       })
       setIsSubmitting(false);
+      router.push(`/project/${Number(id)}`);
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);
@@ -158,7 +161,7 @@ function Page() {
 
   return (
     <div>
-       {connected ?     <Form {...form}>
+       {connected ?  <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 p-10 border m-10 rounded-md"

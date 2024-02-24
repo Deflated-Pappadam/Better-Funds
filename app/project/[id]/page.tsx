@@ -100,6 +100,7 @@ function Page({ params }: { params: { id: string } }) {
           });
         }
         setIsProcessing(false);
+        setShowThankyouMsg(true);
       } catch (err) {
         setIsProcessing(false);
         console.log("error:", err);
@@ -135,20 +136,10 @@ function Page({ params }: { params: { id: string } }) {
               <h2 className="font-bold text-5xl mb-4 text-[#2d2d2d]">
                 Thank You! 🎉
               </h2>
-              <p>Thank you for your donation towards Project Shelter.</p>
+              <p>Thank you for contributing to this cause.</p>
               <p>
-                As a token of our appreciation, we would like to send you{" "}
-                {Math.floor(amount! / 100)} Stray NFTs as a thank you for your
-                support.
-              </p>
-              <p>
-                You can view your NFTs{" "}
-                <a
-                  className="text-[#2d2d2d] underline font-bold"
-                  href="https://testnets.opensea.io/collection/project-shelter"
-                >
-                  here
-                </a>
+                You will be awarded ${Math.floor(amount! / 100)} PDM tokens once the project concludes.{" "}
+                Head over to <a className="text-[#2d2d2d] underline font-bold" href="/marketplace">our marketplace</a> to see what is in store.
               </p>
               <button
                 onClick={() => setShowThankyouMsg(false)}
@@ -172,7 +163,7 @@ function Page({ params }: { params: { id: string } }) {
               alt={""}
               width={1280}
               height={817}
-              className="max-h-[650px] rounded-sm"
+              className="max-h-[650px] rounded-sm object-contain"
             />
           </div>
           <div className="w-[27%] flex flex-col gap-9 mt-6">
@@ -198,7 +189,7 @@ function Page({ params }: { params: { id: string } }) {
                   {relativeTime.from(date, new Date())}
                 </p>
               )}
-              <p className="text-lg">ends in</p>
+              <p className="text-lg">ends</p>
             </div>
             <div className="text-black rounded-lg p-5">
               <h2 className="font-semibold">Currency</h2>
