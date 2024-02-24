@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 
 type Exploreprops={
+    id: string,
     imgUrl:string;
     projectName:string;
     desc:string;
@@ -9,13 +10,11 @@ type Exploreprops={
     raised:number;
     goal:number;
     days:number
-
-
 }
 
 function Explorecomp(props:Exploreprops) {
   return (
-    <div className='w-[500px] h-fit p-[2vw] border-2 shadow-md rounded-md'>
+    <a href={`/project/${props.id}`} className='w-[500px] h-fit p-[2vw] border-2 shadow-md rounded-md'>
         <Image src={props.imgUrl} alt={''} width={1280} height={817} className='max-w-[500] max-h-[200px] object-cover rounded-t-sm'/>
         <div className='px-4 pt-5 flex flex-col gap-5'>
             <h1 className='font-bold text-2xl'>{props.projectName}</h1>
@@ -35,7 +34,7 @@ function Explorecomp(props:Exploreprops) {
            </div>
            
         </div>
-    </div>
+    </a>
   )
 }
 

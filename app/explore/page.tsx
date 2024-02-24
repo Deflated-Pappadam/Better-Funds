@@ -37,6 +37,7 @@ function Page() {
             return (
               <Explorecomp
                 key={doc.id}
+                id={doc.id}
                 imgUrl={doc.value.coverImage}
                 projectName={doc.value.name}
                 desc={doc.value.desc}
