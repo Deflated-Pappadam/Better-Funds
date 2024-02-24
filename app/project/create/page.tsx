@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import { ethers } from "ethers";
+import betterFunds from "@/abi/BetterFunds.json";
 
 const formSchema = z.object({
   name: z
@@ -65,6 +67,8 @@ const formSchema = z.object({
   terms: z.boolean().default(false).optional(),
 });
 
+const contractAddress = "0xb24581c53EBAa7BB235A277bBb1B10300ED5aeeF";
+
 function Page() {
   const [isSubmitting, setIsSubmitting] = useState(true);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -74,8 +78,26 @@ function Page() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
     console.log(values);
+    if (!window.ethereum) return;
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider?.getSigner();
+    const contract = new ethers.Contract(
+      contractAddress,
+      betterFunds.abi,
+      signer
+    );
+    try {
+      const id = await contract.count();
+      const response = await contract.launch(values.milestone3cost);
+      await response.wait();
+      console.log("response:", response);
+      setIsSubmitting(true);
+    } catch (error) {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -158,7 +180,7 @@ function Page() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Milestone Cost"
+                      placeholder="Milestone Amount"
                       {...field}
                     />
                   </FormControl>
@@ -191,7 +213,7 @@ function Page() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Milestone Cost"
+                      placeholder="Milestone Amount"
                       {...field}
                     />
                   </FormControl>
@@ -224,7 +246,7 @@ function Page() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Milestone Cost"
+                      placeholder="Milestone Amount"
                       {...field}
                     />
                   </FormControl>
