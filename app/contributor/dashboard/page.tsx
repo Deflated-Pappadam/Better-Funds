@@ -24,6 +24,7 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "@/firebase";
+import { useRouter } from "next/navigation";
 
 type contributions = {
   project_id: string;
@@ -35,6 +36,7 @@ function Page() {
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [project, setProject] = useState<contributions[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     connectWallet();
@@ -49,17 +51,20 @@ function Page() {
       walletAddress,
       "contributions"
     );
-    const projects: contributions[] = []
+    const projects: contributions[] = [];
     getDocs(contributorsRef).then((querySnap) => {
       querySnap.forEach((di) => {
         const docRef = doc(db, "projects", di.id);
         getDoc(doc(db, "projects", di.id)).then((d) => {
-          projects.push({ project_id: d.id, value: d.data(), userContributed: di.data() })
+          projects.push({
+            project_id: d.id,
+            value: d.data(),
+            userContributed: di.data(),
+          });
           setProject(projects);
         });
       });
     });
-    
   }, [walletAddress]);
 
   async function connectWallet() {
@@ -86,28 +91,40 @@ function Page() {
             <div className="text-[1.5vw] poppins-semibold text-[#2d2d2d] ">
               Dashboard
             </div>
-            <button className="text-[1vw] bg-[#2d2d2d]  text-white poppins-medium px-4 py-2 rounded-xl">
+            <a
+              href="/explore"
+              className="text-[1vw] bg-[#2d2d2d]  text-white poppins-medium px-4 py-2 rounded-xl"
+            >
               + Contribute
-            </button>
+            </a>
           </div>
           <div className="flex flex-col w-full gap-10">
             <div className="flex md:flex-row flex-col w-full justify-between">
               <div className="md:w-[70%] h-[275px] border-[#38383848] border-2 rounded-xl p-5 m-2 flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <h1 className="text-lg m-2 text-[#2d2d2d] ">Investments</h1>
+                  <h1 className="text-lg m-2 text-[#2d2d2d] ">Contributions</h1>
                   <h1 className="text-md m-2 text-[#3b3b3b] ">Last 30 days</h1>
                 </div>
-                <CurvedlineChart projectData={project} className="w-full h-[200px]" />
+                <CurvedlineChart
+                  projectData={project}
+                  className="w-full h-[200px]"
+                />
               </div>
               <div className="flex flex-col md:w-[30%] h-[275px]  justify-center border-[#38383848] border-2 rounded-xl  poppins-medium text-xl p-5 m-2">
                 Your Numbers
                 <div className="grid grid-cols-2 p-3">
                   <div className="p-4">
-                    <h1 className="text-2xl">{Array.from(project.values()).reduce(
-                            (acc, data) => acc + data.userContributed.totalContributed,
-                            0
-                          )} $</h1>
-                    <h2 className="text-sm text-[#3d3d3dba]">Total Contributed</h2>
+                    <h1 className="text-2xl">
+                      {Array.from(project.values()).reduce(
+                        (acc, data) =>
+                          acc + data.userContributed.totalContributed,
+                        0
+                      )}{" "}
+                      $
+                    </h1>
+                    <h2 className="text-sm text-[#3d3d3dba]">
+                      Total Contributed
+                    </h2>
                   </div>
                   <div className="p-4">
                     <h2 className="text-sm text-[#3d3d3dba]">Wallet Address</h2>
@@ -133,7 +150,10 @@ function Page() {
                   </TableHeader>
                   <TableBody>
                     {project.map((p) => (
-                      <TableRow key={p.project_id}>
+                      <TableRow
+                        key={p.project_id}
+                        onClick={() => router.push(`/project/${p.project_id}`)}
+                      >
                         <TableCell className="font-medium">
                           {p.value?.name}
                         </TableCell>
