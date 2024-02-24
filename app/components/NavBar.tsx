@@ -18,9 +18,9 @@ function NavBar() {
         </a>
       </div>
       <div className="min-w-[200px]">
-        <button className="bg-[#2d2d2d] text-white rounded-md px-4 py-2  ">
+        <a href="/BetterFunds.pdf" download className="bg-[#2d2d2d] text-white rounded-md px-4 py-2  ">
           Download Abstract
-        </button>
+        </a>
       </div>
     </nav>
   );
