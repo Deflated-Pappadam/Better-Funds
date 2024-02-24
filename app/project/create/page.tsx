@@ -21,6 +21,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { ethers } from "ethers";
 import betterFunds from "@/abi/BetterFunds.json";
+import { setDoc,doc } from "firebase/firestore";
+import { db, storage } from "@/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const formSchema = z.object({
   name: z
@@ -119,6 +122,21 @@ function Page() {
       const response = await contract.launch(values.milestone3cost);
       await response.wait();
       console.log("response:", response);
+      const storageRef = ref(storage, `project/${values.coverImage.name}`)
+      uploadBytes(storageRef, values.coverImage).then((snapshot) => {
+        console.log("Image uploaded!");
+      })
+      setDoc(doc(db, 'projects', String(Number(id))), {
+        name: values.name,
+        desc: values.description,
+        'milestone 1 description': values.milestone1desc,
+        'milestone 2 description': values.milestone2desc,
+        'milestone 3 description': values.milestone3desc,
+        'milestone 1 cost': values.milestone1cost,
+        'milestone 2 cost': values.milestone2cost,
+        'milestone 3 cost': values.milestone3cost,
+        coverImage: await getDownloadURL(storageRef)
+      })
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
