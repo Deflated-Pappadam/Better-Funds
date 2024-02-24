@@ -18,10 +18,8 @@ export default function Home() {
           </h1>
         </div>
         <h2 className="w-[30%] text-[#616161] text-center text-[1.2vw]">
-        Your Token, Your Impact, Our Marketplace
-         
-        </h2>
-        <button className="text-white text-xl px-6 py-3 bg-blue-500 rounded-xl m-2">
+        Contributions to Tokens, Projects to Progress, Marketplace to Discover        </h2>
+        <button className="text-white text-xl px-8 py-3 bg-[#2d2d2d] rounded-xl m-2">
           Join Now
         </button>
         <div className="flex gap-[2vw] p-5">
@@ -67,24 +65,27 @@ export default function Home() {
         className="w-full mt-[200px] px-[12vw] text-start poppins-medium"
       >
         <h1 className="text-[3vw] text-[#2d2d2d9f] ">
-          <span className="text-[#2d2d2d] font-open-sans">Better Funds</span> is
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-          expedita mollitia optio, molestiae voluptatum
+
+        <span className="text-[#2d2d2d] font-open-sans"> Better Funds : </span>Fuel projects, earn tokens, shop the marketplace. Transform contributions into a better future.
+
+
+
+
         </h1>
       </section>
       <section className="flex w-full bg-[#1c1c1c] min-h-screen mt-10">
         <div className="flex w-[50%] justify-center items-center ">
           <h1 className="w-[70%] text-[3vw] text-[#ffffff6d] tracking-tighter leading-none">
             <span className="text-white poppins-medium">
-              Multiple workspaces.
+              
+            Comprehensively advantageous .   
             </span>
-            Create custom spaces for all of your businesses or clients and
-            easily switch between them.
+             Here, your contributions spark innovation and projects come to life. 
           </h1>
         </div>
         <div className="flex justify-center items-center w-[50%]">
           <Image
-            src="/plushie.png"
+            src="/bulb.png"
             alt=""
             width={1080}
             height={1080}
@@ -95,7 +96,7 @@ export default function Home() {
       <section className="flex w-full bg-[#1c1c1c] pb-[6vw]">
         <div className="flex justify-center items-center w-[50%]">
           <Image
-            src="/plushie.png"
+            src="/hands.png"
             alt=""
             width={1080}
             height={1080}
@@ -105,30 +106,31 @@ export default function Home() {
         <div className="flex w-[50%] justify-center items-center ">
           <h1 className="w-[70%] text-[3vw] text-[#ffffff6d] tracking-tighter leading-none">
             <span className="text-white poppins-medium">
-              Multiple workspaces.
+            Co-Operative Ecosystem . 
             </span>
-            Create custom spaces for all of your businesses or clients and
-            easily switch between them.
+            Unlock innovation with your tokens. Deep dive into our marketplace.
           </h1>
         </div>
       </section>
       <section className="w-full flex flex-col justify-center items-center text-center">
         <div className="leading-none poppins-medium  text-[#2d2d2d9d] text-[2vw] p-[2vw] pt-[4vw]">
           <h1 className="text-black">...and much more. </h1>
-          ‍‍<h1>Join thousands making the switch.</h1>
+          ‍‍<h1>Join us in making a change .</h1>
         </div>
         <div className="flex flex-wrap gap-6 h-fit p-[4vw] justify-center items-center">
-        <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
-        <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
-        <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
-        <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
-        <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
-        <Datablock heading="Privacy friendly" desc="We collect far less data than most email marketing platforms, and strive to comply with all global privacy regulations."/>
+        <Datablock heading="Blockchain Based" desc="Assured transparency and ease of transaction by utilizing the scopes of crytpo-wallets and tokens available."/>
+        <Datablock heading="Incentives/Rewards" desc="Contributors receive PDM tokens proportional to their contributions, redeemable on our marketplace."/>
+        <Datablock heading="Incremental Funding" desc="Businesses receive funds incrementally based on progress achieved and handled ."/>
+        <Datablock heading="StableCoins and etc" desc="All Crypto donations are converted to StableCoins which make it near to immune to market fluctuations."/>
+        <Datablock heading="Mutually Beneficial" desc="We create an ecosystem that aims to benefit both entrepreneurs and contributors."/>
+        <Datablock heading="Re-finig Fundraisers" desc="Better Funds aims to replace the current framework with a more advanced counterpart."/>
          </div>
       </section>
 
-      <footer className="min-h-[400px] bg-[#1c1c1c] w-full">
-
+      <footer className="flex flex-col min-h-[400px] bg-[#1c1c1c] w-full p-5 justify-center items-center">
+<h1 className="text-[7vw] text-[#f6f6f6]">Better Funds</h1>
+<h2 className="text-[1.5vw] text-[#f6f6f6]">Contributions to Tokens, Projects to Progress, Marketplace to Discover</h2>
+<h3 className="text-[#f6f6f6] p-5"> ©️ deflated pappadam </h3>
       </footer>
     </main>
   );
