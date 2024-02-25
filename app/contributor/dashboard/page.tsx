@@ -157,7 +157,7 @@ function Page() {
                         <TableCell className="font-medium">
                           {p.value?.name}
                         </TableCell>
-                        <TableCell>{p.value?.totalContributed}</TableCell>
+                        <TableCell>{p.value?.desc}</TableCell>
                         <TableCell>
                           {p.userContributed.totalContributed}
                         </TableCell>
