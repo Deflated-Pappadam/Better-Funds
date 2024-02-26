@@ -180,7 +180,7 @@ function Page({ params }: { params: { id: string } }) {
             <div className="w-[30px] h-[30px] rounded-full bg-green-400 absolute ml-[23%]" />
             <div>
               <h1 className="font-semibold text-4xl">{projectData?.totalContributed}$ / {projectData?.["milestone 3 cost"]}$</h1>
-              {projectData?.totalContributed>projectData?.["milestone 3 cost"]? <p className="text-lg">Goal Reached</p>: <p className="text-lg">contributed.</p>}
+              {projectData?.totalContributed>=projectData?.["milestone 3 cost"]? <p className="text-lg">Goal Reached !! </p>: <p className="text-lg"> contributed.</p>}
              
             </div>
             <div>
@@ -224,7 +224,7 @@ function Page({ params }: { params: { id: string } }) {
                   <p className="w-[50px]">MATIC*</p>
                 </div>
               </div>
-              <Button disabled={isProcessing} onClick={contributeProject}>
+              <Button disabled={isProcessing ||    projectData?.totalContributed>=projectData?.["milestone 3 cost"]} onClick={contributeProject} className="my-4">
                 {isProcessing ? (
                   <div className="flex items-center space-x-3">
                     <p>Processing</p>
