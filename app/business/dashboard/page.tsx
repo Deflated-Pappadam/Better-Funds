@@ -78,7 +78,7 @@ function Page() {
           <div className="flex flex-col w-full gap-10 py-5">
             <div className="flex md:flex-row flex-col w-full justify-between">
               <div>
-                <h1 className="text-[4vw]">Shibu RP</h1>
+                <h1 className="text-[4vw]">  {walletAddress ? walletAddress : "loading"} </h1>
                 <h2 className="text-[2vw] my-5">Entrepreneur</h2>
                 <a href="/project/create" className="my-10 bg-[#2d2d2d] text-white px-4 py-2 rounded-xl">Ideate</a>
               </div>
